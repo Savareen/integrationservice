@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://createclient.server.igorzaitcev.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CustomerOrdersService" targetNamespace="http://createclient.server.igorzaitcev.com">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://createclient.server.igorzaitcev.com">
+			<xsd:complexType name="client">
+				<xsd:sequence>
+					<xsd:element name="clientId" type="xsd:long" minOccurs="0"/>
+					<xsd:element name="firstName" type="xsd:string" />
+					<xsd:element name="lastName" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="createClientsRequest">
+				<xsd:sequence>
+					<xsd:element name="client" type="tns:client" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="createClientsResponse">
+				<xsd:sequence>
+					<xsd:element name="client" type="tns:client" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="createClientsRequest" type="tns:createClientsRequest" />
+			<xsd:element name="createClientsResponse" type="tns:createClientsResponse" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="createClientsRequest">
+		<wsdl:part element="tns:createClientsRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="createClientsResponse">
+		<wsdl:part element="tns:createClientsResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="ClientsServerPortType">
+		<wsdl:operation name="createClients">
+			<wsdl:input message="tns:createClientsRequest" name="createClientsRequest"/>
+			<wsdl:output message="tns:createClientsResponse" name="createClientsResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ClientsServerSoapBinding" type="tns:ClientsServerPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="createClients">
+			<soap:operation soapAction="http://igorzaitcev.com/NewOperation" />
+			<wsdl:input name="createClientsRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="createClientsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ClientsServer">
+		<wsdl:port binding="tns:ClientsServerSoapBinding" name="ClientsServerPort">
+			<soap:address location="http://localhost:8081/api/services/clientsCreateService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

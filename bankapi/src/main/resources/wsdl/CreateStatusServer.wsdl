@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://createstatus.server.igorzaitcev.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CreateStatusService" targetNamespace="http://createstatus.server.igorzaitcev.com">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://createstatus.server.igorzaitcev.com">
+			<xsd:complexType name="contractStatus">
+				<xsd:sequence>
+					<xsd:element name="status" type="xsd:string" />
+					<xsd:element name="date" type="xsd:dateTime" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="createStatusRequest">
+				<xsd:sequence>
+					<xsd:element name="status" type="xsd:boolean" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="createStatusResponse">
+				<xsd:sequence>
+					<xsd:element name="contractStatus" type="tns:contractStatus" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="createStatusRequest" type="tns:createStatusRequest" />
+			<xsd:element name="createStatusResponse" type="tns:createStatusResponse" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="createStatusRequest">
+		<wsdl:part element="tns:createStatusRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="createStatusResponse">
+		<wsdl:part element="tns:createStatusResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="StatusServerPortType">
+		<wsdl:operation name="createStatus">
+			<wsdl:input message="tns:createStatusRequest" name="createStatusRequest"/>
+			<wsdl:output message="tns:createStatusResponse" name="createStatusResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="StatusServerSoapBinding" type="tns:StatusServerPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="createStatus">
+			<soap:operation soapAction="http://igorzaitcev.com/NewOperation" />
+			<wsdl:input name="createStatusRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="createStatusResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="StatusServer">
+		<wsdl:port binding="tns:StatusServerSoapBinding" name="StatusServerPort">
+			<soap:address location="http://localhost:8081/api/services/statusCreateService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

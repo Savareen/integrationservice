@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.igorzaitcev.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://createclient.server.igorzaitcev.com" name="CreateClientsServiceService" targetNamespace="http://service.igorzaitcev.com/">
+  <wsdl:import location="http://localhost:8081/api/clientscreateservice?wsdl=ClientsServerPortType.wsdl" namespace="http://createclient.server.igorzaitcev.com">
+    </wsdl:import>
+  <wsdl:binding name="CreateClientsServiceServiceSoapBinding" type="ns1:ClientsServerPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createClients">
+      <soap:operation soapAction="http://igorzaitcev.com/NewOperation" style="document"/>
+      <wsdl:input name="createClients">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createClientsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CreateClientsServiceService">
+    <wsdl:port binding="tns:CreateClientsServiceServiceSoapBinding" name="CreateClientsServicePort">
+      <soap:address location="http://localhost:8081/api/clientscreateservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

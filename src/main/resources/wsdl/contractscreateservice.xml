@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.igorzaitcev.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://createcontract.server.igorzaitcev.com" name="CreateContractsServiceService" targetNamespace="http://service.igorzaitcev.com/">
+  <wsdl:import location="http://localhost:8081/api/contractscreateservice?wsdl=ContractsServerPortType.wsdl" namespace="http://createcontract.server.igorzaitcev.com">
+    </wsdl:import>
+  <wsdl:binding name="CreateContractsServiceServiceSoapBinding" type="ns1:ContractsServerPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createContracts">
+      <soap:operation soapAction="http://igorzaitcev.com/NewOperation" style="document"/>
+      <wsdl:input name="createContracts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createContractsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CreateContractsServiceService">
+    <wsdl:port binding="tns:CreateContractsServiceServiceSoapBinding" name="CreateContractsServicePort">
+      <soap:address location="http://localhost:8081/api/contractscreateservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

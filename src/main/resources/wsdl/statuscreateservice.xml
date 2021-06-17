@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.igorzaitcev.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://createstatus.server.igorzaitcev.com" name="CreateStatusServiceService" targetNamespace="http://service.igorzaitcev.com/">
+  <wsdl:import location="http://localhost:8081/api/statuscreateservice?wsdl=StatusServerPortType.wsdl" namespace="http://createstatus.server.igorzaitcev.com">
+    </wsdl:import>
+  <wsdl:binding name="CreateStatusServiceServiceSoapBinding" type="ns1:StatusServerPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createStatus">
+      <soap:operation soapAction="http://igorzaitcev.com/NewOperation" style="document"/>
+      <wsdl:input name="createStatus">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createStatusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CreateStatusServiceService">
+    <wsdl:port binding="tns:CreateStatusServiceServiceSoapBinding" name="CreateStatusServicePort">
+      <soap:address location="http://localhost:8081/api/statuscreateservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

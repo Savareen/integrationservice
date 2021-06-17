@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://createcontract.server.igorzaitcev.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CreateContractService" targetNamespace="http://createcontract.server.igorzaitcev.com">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://createcontract.server.igorzaitcev.com">
+			<xsd:complexType name="registeredClient">
+				<xsd:sequence>
+					<xsd:element name="clientId" type="xsd:long" />
+					<xsd:element name="firstName" type="xsd:string" />
+					<xsd:element name="lastName" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="createContractsRequest">
+				<xsd:sequence>
+					<xsd:element name="client" type="tns:registeredClient" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="createContractsResponse">
+				<xsd:sequence>
+					<xsd:element name="contractId" type="xsd:long" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="createContractsRequest" type="tns:createContractsRequest" />
+			<xsd:element name="createContractsResponse" type="tns:createContractsResponse" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="createContractsRequest">
+		<wsdl:part element="tns:createContractsRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="createContractsResponse">
+		<wsdl:part element="tns:createContractsResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="ContractsServerPortType">
+		<wsdl:operation name="createContracts">
+			<wsdl:input message="tns:createContractsRequest" name="createContractsRequest"/>
+			<wsdl:output message="tns:createContractsResponse" name="createContractsResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ContractsServerSoapBinding" type="tns:ContractsServerPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="createContracts">
+			<soap:operation soapAction="http://igorzaitcev.com/NewOperation" />
+			<wsdl:input name="createContractsRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="createContractsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ContractsServer">
+		<wsdl:port binding="tns:ContractsServerSoapBinding" name="ContractsServerPort">
+			<soap:address location="http://localhost:8081/api/services/contractsCreateService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
